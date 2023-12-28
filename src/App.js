@@ -15,6 +15,7 @@ function App() {
   //   Poster: "https://m.media-amazon.com/images/M/MV5BOTA5NjhiOTAtZWM0ZC00MWNhLThiMzEtZDFkOTk2OTU1ZDJkXkEyXkFqcGdeQXVyMTA4NDI1NTQx._V1_SX300.jpg",
   // }
 
+  // ---
   // async function fetchMovies(){
   //   const data = await fetch(URL);
   //   const movies = data.json();
