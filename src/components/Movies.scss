@@ -1,0 +1,14 @@
+.movies {
+    display: flex; 
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: rgb(133, 124, 211);
+    padding: 80px;
+    min-height: 100vh;
+    gap: 30px;
+  }
+  
+  .movies-filter {
+    height: 20px;
+  }
+  
