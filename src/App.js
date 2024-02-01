@@ -1,35 +1,28 @@
 import Movies from './components/Movies';
 import { useState, useEffect } from 'react';
 import { APIKEY } from './env.js';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchData } from './actions';
+import CircularProgress from '@mui/material/CircularProgress'
 
 import './App.scss';
 
 function App() {
-  const [movies, setMovies] = useState ([  ]); 
+  // const [movies, setMovies] = useState ([  ]); 
   const [searchField, setSearchField] = useState('');
   const URL = `https://www.omdbapi.com/?s=${searchField}&apikey=${APIKEY}`
-
-  //   {
-  //   Title: "Star Wars: Episode IV - A New Hope",
-  //   Year: "1977",
-  //   Poster: "https://m.media-amazon.com/images/M/MV5BOTA5NjhiOTAtZWM0ZC00MWNhLThiMzEtZDFkOTk2OTU1ZDJkXkEyXkFqcGdeQXVyMTA4NDI1NTQx._V1_SX300.jpg",
-  // }
-
-  // --- Разобраться как сделать ---
-  // async function fetchMovies(){
-  //   const data = await fetch(URL);
-  //   const movies = data.json();
-  //   setMovies(movies.Search);
-  // }
+  const movies = useSelector(state => state.movies);
+  const dispatch = useDispatch();
 
   function getMovies(){
     // fetchMovies()
-    fetch(encodeURI(URL))
-    .then (res => res.json())
-    .then (movies => setMovies(movies.Search))
+    // fetch(encodeURI(URL))
+    // .then (res => res.json())
+    // .then (movies => setMovies(movies.Search))
+    dispatch(fetchData(URL));
   }
 
-  useEffect(getMovies, []);
+  useEffect(getMovies, [dispatch]);
   useEffect(getMovies, [searchField]);
 
   let timer;
@@ -44,7 +37,11 @@ function App() {
   return (
     <div className="App">
       <input type="text" onChange={handleChange} />
-      <Movies movies={movies} />
+      {
+        movies.pending ? "Loading..." :
+          movies.error ? movies.error :
+            <Movies movies={movies.movies} />
+      }
     </div>
   );
 }
